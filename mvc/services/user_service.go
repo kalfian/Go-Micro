@@ -5,7 +5,19 @@ import (
 	"github.com/kalfian/Go-Micro/mvc/utils"
 )
 
+type userService struct{}
+
+var (
+	// UserService ...
+	UserService userService
+)
+
 //GetUser ...
-func GetUser(userID int64) (*domain.User, *utils.ApplicationError) {
-	return domain.GetUser(userID)
+func (u *userService) GetUser(userID int64) (*domain.User, *utils.ApplicationError) {
+	user, err := domain.UserDao.GetUser(userID)
+	if err != nil {
+		return nil, err
+	}
+
+	return user, nil
 }
